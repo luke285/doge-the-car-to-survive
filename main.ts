@@ -1,9 +1,23 @@
 input.onButtonPressed(Button.A, function () {
     player.change(LedSpriteProperty.X, -1)
 })
-input.onButtonPressed(Button.B, function () {
+function spawncar () {
+    carX = randint(1, 2)
+    carsprite1 = [game.createSprite(carX, 2), game.createSprite(carX, 0), game.createSprite(carX, 1)]
+    carX = randint(2, 3)
+    carsprite2 = [game.createSprite(carX, 2), game.createSprite(carX, 0), game.createSprite(carX, 1)]
+    amountofcars += 0
+}
+function spawncars () {
 	
+}
+input.onButtonPressed(Button.B, function () {
+    player.change(LedSpriteProperty.X, 1)
 })
+let amountofcars = 0
+let carsprite2: game.LedSprite[] = []
+let carsprite1: game.LedSprite[] = []
+let carX = 0
 let player: game.LedSprite = null
 player = game.createSprite(2, 4)
 let wall = game.createSprite(0, 0)
@@ -16,31 +30,30 @@ wall = game.createSprite(4, 1)
 wall = game.createSprite(4, 2)
 wall = game.createSprite(4, 3)
 wall = game.createSprite(4, 4)
-let car = game.createSprite(randint(1, 3), 0)
-let car_2 = game.createSprite(randint(1, 3), 0)
+spawncar()
 basic.forever(function () {
-    if (car.isTouching(player)) {
-        game.gameOver()
+    basic.pause(500)
+    for (let value of carsprite1) {
+        if (value.isTouching(player)) {
+            game.gameOver()
+        }
+        if (value.isTouchingEdge()) {
+            value.delete()
+            amountofcars += 1
+        }
+        value.change(LedSpriteProperty.Y, 1)
     }
-    if (car_2.isTouching(player)) {
-        game.gameOver()
+    for (let value of carsprite2) {
+        if (value.isTouching(player)) {
+            game.gameOver()
+        }
+        if (value.isTouchingEdge()) {
+            value.delete()
+            amountofcars += 1
+        }
+        value.change(LedSpriteProperty.Y, 1)
     }
-    basic.pause(100)
-    car.turn(Direction.Right, 90)
-    for (let index = 0; index < 4; index++) {
-        car.move(1)
-        basic.pause(500)
-    }
-    if (car.isTouchingEdge()) {
-        car.delete()
-    }
-    basic.pause(100)
-    car.turn(Direction.Right, 90)
-    for (let index = 0; index < 4; index++) {
-        car.move(1)
-        basic.pause(500)
-    }
-    if (car.isTouchingEdge()) {
-        car.delete()
+    if (amountofcars >= 3) {
+        spawncar()
     }
 })
