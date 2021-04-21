@@ -2,7 +2,7 @@ input.onButtonPressed(Button.A, function () {
     player.change(LedSpriteProperty.X, -1)
 })
 input.onButtonPressed(Button.B, function () {
-    player.change(LedSpriteProperty.X, 1)
+	
 })
 let player: game.LedSprite = null
 player = game.createSprite(2, 4)
