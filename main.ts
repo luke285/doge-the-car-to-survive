@@ -3,13 +3,10 @@ input.onButtonPressed(Button.A, function () {
 })
 function spawncar () {
     carX = randint(1, 2)
-    carsprite1 = [game.createSprite(carX, 2), game.createSprite(carX, 0), game.createSprite(carX, 1)]
+    carsprite1 = [game.createSprite(carX, 2), game.createSprite(carX, 1)]
     carX = randint(2, 3)
-    carsprite2 = [game.createSprite(carX, 2), game.createSprite(carX, 0), game.createSprite(carX, 1)]
-    amountofcars += 0
-}
-function spawncars () {
-	
+    carsprite2 = [game.createSprite(carX, 2), game.createSprite(carX, 1)]
+    amountofcars = 0
 }
 input.onButtonPressed(Button.B, function () {
     player.change(LedSpriteProperty.X, 1)
@@ -53,7 +50,8 @@ basic.forever(function () {
         }
         value.change(LedSpriteProperty.Y, 1)
     }
-    if (amountofcars >= 3) {
+    if (amountofcars >= 4) {
         spawncar()
+        game.addScore(1)
     }
 })
